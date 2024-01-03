@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"github.com/gin-gonic/gin"
+	"github.com/gulugulu1103/Go-memorizer/handler"
 	"log"
 	"net/http"
 	"os/signal"
@@ -21,10 +22,8 @@ func main() {
 	// 路由 GET 请求，第一个参数是路径，第二个参数是处理这个请求的函数
 	// 函数的要求是 func(c *gin.Context)，gin.Context 封装了 request 和 response
 	// 这里返回一个 JSON，JSON 是一个 map[string]interface{} 的实例
-	router.GET("/api/account", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{ // gin.H 是 map[string]interface{} 的一种快捷方式
-			"message": "account",
-		})
+	handler.NewHandler(&handler.Config{
+		R: router,
 	})
 
 	// 为什么是&http.Server{}，而不是http.Server{}？
